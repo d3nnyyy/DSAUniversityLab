@@ -29,33 +29,33 @@ def find_shortest_unsorted_subarray(arr):
     arr (list): The input array.
 
     Returns:
-    tuple: A tuple containing two integers, representing the start and end indices of the smallest unsorted subarray.
+    tuple: A tuple containing two integers, representing the start and end indices
+           of the smallest unsorted subarray.
            If the array is already sorted, (-1, -1) is returned.
 
     Time Complexity:
-    The time complexity of this function is O(n^2), where 'n' is the number of elements in the input array.
-    This is due to the use of insertion sort for sorting a copy of the input array.
-    But since the input array is almost sorted, the time complexity is closer to O(n).
+        The time complexity of this function is O(n^2),
+        where 'n' is the number of elements in the array.
+        This is due to the use of insertion sort for sorting a copy of the input array.
+        But since the input array is almost sorted, the time complexity is closer to O(n).
 
     Space Complexity:
-    The space complexity is O(n) due to the creation of a sorted copy of the input array.
+        The space complexity is O(n) due to the creation of a sorted copy of the input array.
     """
 
-    "Initialize start and end indices for the unsorted subarray."
-    x, y = -1, -1
+    # Initialize start and end indices for the unsorted subarray.
+    start_index, end_index = -1, -1
 
-    "Get the length of the input array."
-    n = len(arr)
+    # Get the length of the input array.
+    array_length = len(arr)
 
-    "Create a copy of the input array to use for sorting."
-    sorted_arr = [x for x in arr]
+    # Create a copy of the input array to use for sorting.
+    sorted_arr = list(arr)
 
-    """
-    Sort the copy of the input array using insertion sort. 
-    I chose insertion sort because we know that the input array is almost sorted 
-    and insertion sort is quite efficient for such cases.
-    """
-    for i in range(1, n):
+    # Sort the copy of the input array using insertion sort.
+    # I chose insertion sort because we know that the input array is almost sorted
+    # and insertion sort is quite efficient for such cases.
+    for i in range(1, array_length):
 
         key = sorted_arr[i]
         j = i - 1
@@ -66,30 +66,26 @@ def find_shortest_unsorted_subarray(arr):
 
         sorted_arr[j + 1] = key
 
-    """
-    Find the first index where the input array and the sorted array differ.
-    This is the start index of the unsorted subarray.
-    """
-    for i in range(n):
+    # Find the first index where the input array and the sorted array differ.
+    # This is the start index of the unsorted subarray.
+    for i in range(array_length):
         if arr[i] != sorted_arr[i]:
-            x = i
+            start_index = i
             break
 
-    "If the input array is already sorted, return (-1, -1)."
-    if x == -1:
+    # If the input array is already sorted, return (-1, -1).
+    if start_index == -1:
         return -1, -1
 
-    """
-    Find the last index where the input array and the sorted array differ.
-    This is the end index of the unsorted subarray.
-    """
-    for i in range(n - 1, -1, -1):
+    # Find the last index where the input array and the sorted array differ.
+    # This is the end index of the unsorted subarray.
+    for i in range(array_length - 1, -1, -1):
         if arr[i] != sorted_arr[i]:
-            y = i
+            end_index = i
             break
 
-    "Return the start and end indices of the unsorted subarray."
-    return x, y
+    # Return the start and end indices of the unsorted subarray.
+    return start_index, end_index
 
 
 # should return (3,9)
