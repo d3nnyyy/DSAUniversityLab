@@ -19,6 +19,9 @@ def find_shortest_unsorted_subarray(arr):
             x = i
             break
 
+    if x == -1:
+        return -1, -1
+
     for i in range(n - 1, -1, -1):
         if arr[i] != sorted_arr[i]:
             y = i
