@@ -86,19 +86,3 @@ def find_shortest_unsorted_subarray(arr):
 
     # Return the start and end indices of the unsorted subarray.
     return start_index, end_index
-
-
-# should return (3,9)
-print(find_shortest_unsorted_subarray([1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19]))
-
-# should return (0,4)
-print(find_shortest_unsorted_subarray([5, 4, 3, 2, 1]))
-
-# should return (-1,-1)
-print(find_shortest_unsorted_subarray([1, 2, 3, 4, 5]))
-
-# should return (-1,-1)
-print(find_shortest_unsorted_subarray([1]))
-
-# should return (-1,-1)
-print(find_shortest_unsorted_subarray([]))
