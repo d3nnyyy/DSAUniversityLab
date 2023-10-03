@@ -85,10 +85,3 @@ def get_board_size(w, h, N):
 
     # Return the minimum size of the square board.
     return min_side
-
-
-print(get_board_size(w=4, h=1, N=12))
-print(get_board_size(w=3, h=2, N=10))
-print(get_board_size(w=1, h=1, N=4))
-print(get_board_size(w=1, h=1, N=5))
-print(get_board_size(w=999999999, h=1000000000, N=2))
