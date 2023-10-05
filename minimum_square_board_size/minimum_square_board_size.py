@@ -12,7 +12,6 @@ Example:
 
     Input: N = 10, W = 2, H = 3
     Output: 9
-
     Explanation:
         The smallest square board size that can hold all the leaflets is 9.
         The board size of 9 can hold 4 leaflets in each row and 2 leaflets in each column.
@@ -64,22 +63,26 @@ def get_board_size(w, h, N):
     while min_side < max_side:
 
         # Calculate the mid-point of the minimum and maximum sides.
+        # This is the size of the square board.
         mid = (min_side + max_side) // 2
 
-        # Calculate the number of leaflets that can fit in each row and column.
+        # Calculate the number of leaflets
+        # that can fit in each row and column of the square board.
         leaflets_per_row = mid // w
         leaflets_per_col = mid // h
 
         # Calculate the total number of leaflets that can fit in the square board.
         total_leaflets = leaflets_per_row * leaflets_per_col
 
-        # If the total number of leaflets is greater than or equal to the number of leaflets,
-        # then the maximum size of the square board is less than or equal to the mid-point.
+        # If the `total` number of leaflets is greater than or equal to the number of leaflets,
+        # in other words, if the square board can accommodate all the leaflets,
+        # then we can reduce the maximum size of the square board.
         if total_leaflets >= N:
             max_side = mid
 
         # If the total number of leaflets is less than the number of leaflets,
-        # then the minimum size of the square board is greater than the mid-point.
+        # in other words, if the square board cannot accommodate all the leaflets,
+        # then we can increase the minimum size of the square board.
         else:
             min_side = mid + 1
 
