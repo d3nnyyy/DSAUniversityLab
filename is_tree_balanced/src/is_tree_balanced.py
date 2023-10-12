@@ -32,7 +32,7 @@ the left subtree's height is 3 and the right subtree's height is 1,
 so the difference is 2 which is greater than 1.
 """
 
-from binary_tree import BinaryTree
+from is_tree_balanced.src.binary_tree import BinaryTree
 
 
 def get_height(node: BinaryTree) -> int:
@@ -62,6 +62,10 @@ def is_tree_balanced(node: BinaryTree) -> bool:
     :param node: The root node of the binary tree
     :return: True if the binary tree is height-balanced, otherwise False
     """
+
+    # If the node is None, then the tree is balanced.
+    if node is None:
+        return True
 
     # Calculate the height of the left and right subtrees.
     left_tree_height = get_height(node.left)
