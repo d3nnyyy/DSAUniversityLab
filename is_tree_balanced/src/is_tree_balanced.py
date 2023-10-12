@@ -7,11 +7,11 @@ differ in height by no more than one.
 
 Example 1:
 
-    1
+    10
    / \
-  2   3
+  5   20
  / \
-4   5
+1   8
 
 The above binary tree is height-balanced because
 the left subtree's height is 2 and the right subtree's height is 1,
@@ -19,13 +19,13 @@ so the difference is 1 which is less than or equal to 1.
 
 Example 2:
 
-        1
+        10
        /  \
-      3    2
+      5    20
      / \
-    7   4
+    3   8
    /     \
-  8       5
+  1       9
 
 The above binary tree is not height-balanced because
 the left subtree's height is 3 and the right subtree's height is 1,
