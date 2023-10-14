@@ -51,6 +51,10 @@ def get_height(node: BinaryTree) -> int:
     left_tree_height = get_height(node.left)
     right_tree_height = get_height(node.right)
 
+    # If the absolute difference in heights is greater than 1, then the tree is not balanced.
+    if abs(left_tree_height - right_tree_height) > 1 or left_tree_height == -1 or right_tree_height == -1:
+        return -1
+
     # Return the maximum height plus 1, representing the height of the current node.
     return 1 + max(left_tree_height, right_tree_height)
 
@@ -70,6 +74,10 @@ def is_tree_balanced(node: BinaryTree) -> bool:
     # Calculate the height of the left and right subtrees.
     left_tree_height = get_height(node.left)
     right_tree_height = get_height(node.right)
+
+    # If either subtree is unbalanced, then the tree is unbalanced.
+    if left_tree_height == -1 or right_tree_height == -1:
+        return False
 
     # Check if the absolute difference in heights is at most 1, indicating a balanced tree.
     return abs(left_tree_height - right_tree_height) <= 1
