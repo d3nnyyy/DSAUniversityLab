@@ -54,6 +54,31 @@ def create_unbalanced_tree():
     return root
 
 
+def create_tree_with_unbalanced_subtree():
+    """
+    Create a tree with an unbalanced subtree:
+
+            10
+          /   \
+         5    20
+        /       \
+       3        100
+      /           \
+     1           1000
+
+    :return: The root node of the tree
+    """
+
+    root = BinaryTree(10)
+    root.left = BinaryTree(5)
+    root.left.left = BinaryTree(3)
+    root.left.left.left = BinaryTree(1)
+    root.right = BinaryTree(20)
+    root.right.right = BinaryTree(100)
+    root.right.right.right = BinaryTree(1000)
+    return root
+
+
 class TestIsTreeBalanced(unittest.TestCase):
     """
     Test class for the is_tree_balanced.py module.
@@ -73,6 +98,14 @@ class TestIsTreeBalanced(unittest.TestCase):
         :return: None
         """
         root = create_unbalanced_tree()
+        self.assertFalse(is_tree_balanced(root))
+
+    def test_tree_with_unbalanced_subtree(self):
+        """
+        Test that a tree with an unbalanced subtree is not balanced.
+        :return: None
+        """
+        root = create_tree_with_unbalanced_subtree()
         self.assertFalse(is_tree_balanced(root))
 
     def test_empty_tree(self):
