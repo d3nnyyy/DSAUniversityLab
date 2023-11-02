@@ -43,6 +43,10 @@ def find_num_of_islands(matrix: list[list[int]]) -> int:
     :return: an integer representing the number of islands in the matrix
     """
 
+    # Check if the matrix is empty
+    if not matrix:
+        return 0
+
     # Get the number of rows and columns in the matrix
     rows = len(matrix)
     cols = len(matrix[0])
@@ -101,16 +105,3 @@ def dfs(i, j, visited, matrix):
             neighbor_col = delta_col + j
             # Perform depth-first search on the neighbor
             dfs(neighbor_row, neighbor_col, visited, matrix)
-
-
-# Define the input matrix
-mat = [
-    [1, 1, 0, 0, 0],
-    [1, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0],
-    [1, 0, 0, 1, 1]
-]
-
-# Print the number of islands
-print(find_num_of_islands(mat))
