@@ -4,7 +4,7 @@ where 1 represents land and 0 represents water,
 find the number of islands in the matrix.
 
 An island is a group of adjacent cells that are all land.
-Two cells are adjacent if they are adjacent horizontally or vertically.
+Two cells are adjacent if they are adjacent horizontally, vertically, or diagonally.
 
 Example:
 Input:
@@ -16,14 +16,14 @@ Input:
     [1, 0, 0, 1, 1]
 ]
 
-Output: 4
+Output: 3
 
 Explanation:
-There are 4 islands in the matrix.
-The first island is four adjacent 1s in the top-left corner of the matrix.
+There are 3 islands in the matrix.
+The first island is four adjacent 1s in the top-left corner of the matrix,
+along with the 1, that's one cell to the bottom-right of it.
 The second island is two adjacent 1s in the bottom-right corner of the matrix.
-The third island is the 1s in the middle of the matrix.
-The fourth island is the 1s in the bottom-left corner of the matrix.
+The third island is the 1s in the bottom-left corner of the matrix.
 """
 
 
@@ -93,26 +93,23 @@ def dfs(i, j, visited, matrix):
     # Mark the current cell as visited
     visited[i][j] = True
 
-    # Define deltas for adjacent cells
-    delta_row = [1, -1, 0, 0]
-    delta_col = [0, 0, 1, -1]
-
-    # Iterate through the adjacent cells
-    for d in range(4):
-        # Get the row and column of the adjacent cell
-        neighbor_row = delta_row[d] + i
-        neighbor_col = delta_col[d] + j
-
-        # Perform depth-first search on the adjacent cell
-        dfs(neighbor_row, neighbor_col, visited, matrix)
+    # Iterate through the neighbors of the current cell
+    for delta_row in range(-1, 2):
+        for delta_col in range(-1, 2):
+            # Find the row and column indices of the neighbor
+            neighbor_row = delta_row + i
+            neighbor_col = delta_col + j
+            # Perform depth-first search on the neighbor
+            dfs(neighbor_row, neighbor_col, visited, matrix)
 
 
 # Define the input matrix
 mat = [
-    [1, 1, 1, 1, 0],
-    [1, 1, 0, 1, 0],
     [1, 1, 0, 0, 0],
-    [0, 0, 1, 0, 1]
+    [1, 1, 0, 0, 0],
+    [0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0],
+    [1, 0, 0, 1, 1]
 ]
 
 # Print the number of islands
