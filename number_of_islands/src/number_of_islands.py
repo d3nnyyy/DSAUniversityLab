@@ -64,7 +64,8 @@ def find_num_of_islands(matrix: list[list[int]]) -> int:
             if not visited[i][j] and matrix[i][j] == 1:
                 # Increment the number of islands and perform depth-first search
                 num_islands += 1
-                dfs(i, j, visited, matrix)
+                # dfs(i, j, visited, matrix)
+                bfs(i, j, visited, matrix)
 
     return num_islands
 
@@ -105,3 +106,26 @@ def dfs(i, j, visited, matrix):
             neighbor_col = delta_col + j
             # Perform depth-first search on the neighbor
             dfs(neighbor_row, neighbor_col, visited, matrix)
+
+
+def bfs(i, j, visited, matrix):
+    visited[i][j] = True
+    q = [[i, j]]
+
+    rows = len(matrix)
+    cols = len(matrix[0])
+
+    while q:
+        row, col = q.pop(0)
+        for delta_row in range(-1, 2):
+            for delta_col in range(-1, 2):
+                neighbor_row = delta_row + row
+                neighbor_col = delta_col + col
+                if (
+                        0 <= neighbor_row < rows
+                        and 0 <= neighbor_col < cols
+                        and not visited[neighbor_row][neighbor_col]
+                        and matrix[neighbor_row][neighbor_col] == 1
+                ):
+                    visited[neighbor_row][neighbor_col] = True
+                    q.append([neighbor_row, neighbor_col])
