@@ -17,7 +17,7 @@ class TestFindNumOfIslands(unittest.TestCase):
             [1, 1, 0, 0, 0],
             [0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0],
-            [1, 0, 0, 1, 1]
+            [1, 0, 0, 1, 1],
         ]
         # Verify that the function correctly counts 3 islands in the given matrix.
         self.assertEqual(find_num_of_islands(matrix), 3)
@@ -34,11 +34,7 @@ class TestFindNumOfIslands(unittest.TestCase):
         """
         Test a matrix with no islands.
         """
-        matrix = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
+        matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         # Verify that the function correctly counts 0 islands in a matrix with no islands.
         self.assertEqual(find_num_of_islands(matrix), 0)
 
@@ -46,10 +42,7 @@ class TestFindNumOfIslands(unittest.TestCase):
         """
         Test a matrix with a single island.
         """
-        matrix = [
-            [1, 1],
-            [1, 1]
-        ]
+        matrix = [[1, 1], [1, 1]]
         # Verify that the function correctly counts 1 island in a matrix with a single island.
         self.assertEqual(find_num_of_islands(matrix), 1)
 
@@ -57,14 +50,10 @@ class TestFindNumOfIslands(unittest.TestCase):
         """
         Test a matrix with a single island where diagonal cells are considered adjacent.
         """
-        matrix = [
-            [1, 0, 1],
-            [0, 1, 0],
-            [1, 0, 1]
-        ]
+        matrix = [[1, 0, 1], [0, 1, 0], [1, 0, 1]]
         # Verify that the function correctly counts 1 island when diagonal cells are considered adjacent.
         self.assertEqual(find_num_of_islands(matrix), 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
