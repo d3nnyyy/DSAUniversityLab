@@ -1,39 +1,47 @@
-def min_beers(n, adj):
-    satisfied_employees = [0] * n
-    beers = []
+def read_beer_preferences(file_path):
+    with open(file_path, 'r') as file:
+        num_of_employees, num_of_beers = map(int, file.readline().split())
+        preferences_line = file.readline()
 
-    for beer_idx in range(len(adj)):
-        beers.append(beer_idx + 1)
-        for emp in adj[beer_idx]:
+    return num_of_employees, num_of_beers, preferences_line
+
+
+def convert_line_to_binary_array(line):
+    mapping = {'Y': 1, 'N': 0}
+    line = line.replace(" ", "")
+    values = [mapping[char] for char in line]
+    binary_array = [values[i:i + 3] for i in range(0, len(values), 3)]
+
+    return binary_array
+
+
+def transform_preferences(preferences):
+    beer_preferences = [[] for _ in range(len(preferences[0]))]
+
+    for employee_idx, preference in enumerate(preferences):
+        for beer_idx, likes_beer in enumerate(preference):
+            if likes_beer:
+                beer_preferences[beer_idx].append(employee_idx + 1)
+
+    return beer_preferences
+
+
+def min_beers(n, adj):
+    beers = set(range(1, len(adj) + 1))
+    satisfied_employees = [0] * n
+
+    for beer, employees in enumerate(adj, start=1):
+        for emp in employees:
             satisfied_employees[emp - 1] += 1
 
-    for beer in beers:
+    for beer, employees in enumerate(adj, start=1):
+        if all(satisfied_employees[emp - 1] > 1 for emp in employees):
+            beers.discard(beer)
 
-        arr = []
-        satisfied_employees_copy = [x for x in satisfied_employees]
-
-        for emp in adj[beer - 1]:
-
-            if satisfied_employees_copy[emp - 1] <= 1:
-                break
-
-            if satisfied_employees_copy[emp - 1] > 1:
-                arr.append(emp - 1)
-                satisfied_employees_copy[emp - 1] -= 1
-
-            if len(arr) == len(adj[beer - 1]):
-                beers.remove(beer)
-                break
-
-    return len(beers), satisfied_employees_copy
+    return len(beers), satisfied_employees
 
 
-# Example 1
-n = 6
-adj = [[1], [4, 5, 6], [2, 3, 4, 5]]
-print(min_beers(n, adj))
-
-# Example 2
-n = 2
-adj = [[1], [2]]
-print(min_beers(n, adj))
+num_of_employees, num_of_beers, preferences_line = read_beer_preferences("input.txt")
+array = convert_line_to_binary_array(preferences_line)
+adjacency_list_of_beer_preferences = transform_preferences(array)
+print(min_beers(num_of_employees, adjacency_list_of_beer_preferences))
