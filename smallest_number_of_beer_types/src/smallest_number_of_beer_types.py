@@ -175,22 +175,12 @@ def min_beers(num_of_employees, adjacency_list):
     # Iterate over each beer type and the corresponding list of employees who like that beer.
     for beer, employees in enumerate(adjacency_list, start=1):
         # If all the employees who like the current beer type like more than one beer type
-        if all(satisfied_employees[emp - 1] > 1 for emp in employees):
+        if all(satisfied_employees[employee - 1] > 1 for employee in employees):
             # Remove the current beer type from the set of beer types.
             beers.discard(beer)
+            # Update the count of satisfied employees for the current beer type.
+            for employee in employees:
+                satisfied_employees[employee - 1] -= 1
 
     # Return the number of beer types that need to be ordered.
     return len(beers)
-
-
-def main():
-    file_path = "input.txt"
-    num_of_employees, num_of_beers, preferences_line = read_beer_preferences(file_path)
-    array = convert_line_to_binary_array(preferences_line, num_of_beers)
-    adjacency_list_of_beer_preferences = transform_preferences(array)
-    result = min_beers(num_of_employees, adjacency_list_of_beer_preferences)
-    print(result)
-
-
-if __name__ == "__main__":
-    main()
