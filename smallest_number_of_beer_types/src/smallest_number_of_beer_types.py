@@ -89,6 +89,7 @@ def execute_beer_preferences(file_path: str) -> str | int:
         if not 0 < num_of_beers < 50:
             return INVALID_NUM_OF_BEERS_MSG
 
+        # Check if the preferences line is valid
         if not len(preferences_line) == num_of_employees * num_of_beers + (num_of_employees - 1):
             return INVALID_PREFERENCES_LINE_MSG
 
@@ -113,7 +114,8 @@ def read_beer_preferences(file_path: str) -> tuple:
     The first line of the file contains two integers, N and B,
     where N is the number of employees and B is the number of beer types.
 
-    The second line contains a string of length N * B + (N - 1), where each character is either 'Y' or 'N'.
+    The second line contains a string of length N * B + (N - 1),
+    where each character is either 'Y' or 'N'.
     The first B characters correspond to the first employee's preferences,
     after which the space is followed by the next B characters
     which correspond to the second employee's preferences, and so on.
@@ -194,7 +196,8 @@ def min_beers(num_of_employees: int, adjacency_list: list[list[int]]) -> str | i
     so that each employee will have at least one beer type that they like.
 
     :param num_of_employees: the number of employees
-    :param adjacency_list: a list of lists, where each list contains the employees who like a particular beer
+    :param adjacency_list: a list of lists,
+    where each list contains the employees who like a particular beer
     :return: the minimum number of beer types that need to be ordered
     """
 
