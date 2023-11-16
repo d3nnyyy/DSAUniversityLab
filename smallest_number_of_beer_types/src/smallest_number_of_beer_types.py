@@ -64,8 +64,49 @@ Example 2
         it would be best to buy 1 and 2 varieties
 """
 
+INVALID_PREFERENCES_LINE_MSG = "The number of characters in the preferences line is invalid."
+INVALID_NUM_OF_EMPLOYEES_MSG = "The number of employees must be between 0 and 50."
+INVALID_NUM_OF_BEERS_MSG = "The number of beer types must be between 0 and 50."
+NO_BEER_PREFERENCE_MSG = "Each employee must like at least one type of beer."
 
-def read_beer_preferences(file_path):
+
+def execute_beer_preferences(file_path: str) -> str | int:
+    """
+    Execute the beer preferences logic, including reading from the file and handling constraints.
+
+    :param file_path: the path to the input file
+    :return: the minimum number of beer types that need to be ordered or an error message
+    """
+    try:
+        # Read beer preferences from the file
+        num_of_employees, num_of_beers, preferences_line = read_beer_preferences(file_path)
+
+        # Check if the number of employees is within the allowed range
+        if not 0 < num_of_employees < 50:
+            return INVALID_NUM_OF_EMPLOYEES_MSG
+
+        # Check if the number of beer types is within the allowed range
+        if not 0 < num_of_beers < 50:
+            return INVALID_NUM_OF_BEERS_MSG
+
+        if not len(preferences_line) == num_of_employees * num_of_beers + (num_of_employees - 1):
+            return INVALID_PREFERENCES_LINE_MSG
+
+        # Convert the string of beer preferences to a binary array
+        array = convert_line_to_binary_array(preferences_line, num_of_beers)
+
+        # Transform beer preferences into a list of lists
+        adjacency_list_of_beer_preferences = transform_preferences(array)
+
+        # Calculate the minimum number of beer types
+        result = min_beers(num_of_employees, adjacency_list_of_beer_preferences)
+
+        return result
+    except Exception as e:
+        return str(e)
+
+
+def read_beer_preferences(file_path: str) -> tuple:
     """
     Read the beer preferences from the file.
 
@@ -92,7 +133,7 @@ def read_beer_preferences(file_path):
     return num_of_employees, num_of_beers, preferences_line
 
 
-def convert_line_to_binary_array(line, num_of_beers):
+def convert_line_to_binary_array(line: str, num_of_beers: int) -> list[list[int]]:
     """
     Convert the string of beer preferences to a binary array.
 
@@ -117,7 +158,7 @@ def convert_line_to_binary_array(line, num_of_beers):
     return binary_array
 
 
-def transform_preferences(preferences):
+def transform_preferences(preferences: list[list[int]]) -> list[list[int]]:
     """
     Transform the beer preferences into a list of lists,
     where each list contains the employees who like a particular beer.
@@ -147,7 +188,7 @@ def transform_preferences(preferences):
     return beer_preferences
 
 
-def min_beers(num_of_employees, adjacency_list):
+def min_beers(num_of_employees: int, adjacency_list: list[list[int]]) -> str | int:
     """
     Find the minimum number of beer types that need to be ordered
     so that each employee will have at least one beer type that they like.
@@ -156,6 +197,13 @@ def min_beers(num_of_employees, adjacency_list):
     :param adjacency_list: a list of lists, where each list contains the employees who like a particular beer
     :return: the minimum number of beer types that need to be ordered
     """
+
+    # Create a set of all employees who like at least one beer.
+    liked_beers_set = set(employee for employees in adjacency_list for employee in employees)
+
+    # If there is an employee who does not like any beer, return an error message.
+    if not set(range(1, num_of_employees + 1)).issubset(liked_beers_set):
+        return NO_BEER_PREFERENCE_MSG
 
     # Initialize the set of beer types. Each beer type is represented by a unique integer.
     beers = set(range(1, len(adjacency_list) + 1))
