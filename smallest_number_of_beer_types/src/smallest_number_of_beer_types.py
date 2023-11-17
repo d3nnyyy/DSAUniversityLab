@@ -218,6 +218,11 @@ def min_beers(num_of_employees: int, adjacency_list: list[list[int]]) -> str | i
     # Iterate over each beer type and the corresponding list of employees who like that beer.
     for beer, employees in enumerate(adjacency_list, start=1):
 
+        # Check if there is at least one beer liked by each employee.
+        if not all(any(employee in beer_preferences for beer_preferences in adjacency_list) for employee in employees):
+            # Return the number of beer types that need to be ordered.
+            return len(beers)
+
         # Iterate over each employee who likes the current beer type.
         for employee in employees:
             # Increment the count of satisfied employees for the current beer type.
