@@ -8,6 +8,9 @@ def find_longest_wire(gap_width: int, pole_heights: list[int]) -> float:
     """
     Calculate the maximum length of wire needed to connect poles in the village.
 
+    Time complexity: O(n), where n is the number of poles.
+    Space complexity: O(1).
+
     :param gap_width: The width of the gap between the poles.
     :param pole_heights: A list of integers representing the maximum possible height of each pole.
     :return: The maximum length of wire needed to connect the poles.
