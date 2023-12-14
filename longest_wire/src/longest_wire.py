@@ -23,12 +23,12 @@ def find_longest_wire(gap_width: int, pole_heights: list[int]) -> float:
     current_pole = 0
 
     while current_pole < len(pole_heights) - 1:
-        # Calculate the longest paths from the bottom of the current pole to the top and bottom of the next pole.
-        bottom_to_top = longest_path_to_bottom + math.sqrt(gap_width ** 2 + (pole_heights[current_pole + 1] - 1) ** 2)
+        # Calculate the path lengths to the bottom of the next pole from the top and bottom of the current pole.
+        top_to_bottom = longest_path_to_top + math.sqrt(gap_width ** 2 + (pole_heights[current_pole] - 1) ** 2)
         bottom_to_bottom = longest_path_to_bottom + gap_width
 
-        # Calculate the longest paths from the top of the current pole to the top and bottom of the next pole.
-        top_to_bottom = longest_path_to_top + math.sqrt(gap_width ** 2 + (pole_heights[current_pole] - 1) ** 2)
+        # Calculate the path lengths to the top of the next pole from the top and bottom of the current pole.
+        bottom_to_top = longest_path_to_bottom + math.sqrt(gap_width ** 2 + (pole_heights[current_pole + 1] - 1) ** 2)
         top_to_top = longest_path_to_top + math.sqrt(
             gap_width ** 2 + abs(pole_heights[current_pole] - pole_heights[current_pole + 1]) ** 2)
 
